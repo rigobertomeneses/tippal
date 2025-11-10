@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "validate": "bash scripts/quick-validate.sh",
+    "validate:full": "bash scripts/validate-build.sh",
+    "prebuild": "npm run validate"
+  }
+}

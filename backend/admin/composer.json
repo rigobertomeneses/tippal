@@ -1,0 +1,13 @@
+{
+    "require": {
+        "paypal/rest-api-sdk-php": "*",
+        "google/apiclient": "^2.9",
+        "mpdf/mpdf": "^8.0",
+        "endroid/qr-code": "^4.4",
+        "ctwillie/expo-server-sdk-php": "^2.0",
+        "facebook/graph-sdk": "^5.7",
+        "twilio/sdk": "^8.3",
+        "mercadopago/dx-php": "2.6.2",
+        "stripe/stripe-php": "^17.4"
+    }
+}

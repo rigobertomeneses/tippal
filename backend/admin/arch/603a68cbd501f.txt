@@ -1,0 +1,62 @@
+Array
+(
+    [signature] => Array
+        (
+            [timestamp] => 1558964121
+            [token] => bb8273be7e7c46836c3ba35f8ab44bf9d7d010c272a439959a
+            [signature] => 293324a80f9defa74334feb3315ac9447fb6badfb8dc30aa1110d2acff9b9c0e
+        )
+
+    [event-data] => Array
+        (
+            [geolocation] => Array
+                (
+                    [country] => US
+                    [region] => CA
+                    [city] => San Francisco
+                )
+
+            [tags] => Array
+                (
+                    [0] => my_tag_1
+                    [1] => my_tag_2
+                )
+
+            [ip] => 50.56.129.169
+            [recipient-domain] => example.com
+            [id] => Ase7i2zsRYeDXztHGENqRA
+            [campaigns] => Array
+                (
+                )
+
+            [user-variables] => Array
+                (
+                    [my_var_1] => Mailgun Variable #1
+                    [my-var-2] => awesome
+                )
+
+            [log-level] => info
+            [timestamp] => 1521243339.8737
+            [client-info] => Array
+                (
+                    [client-name] => Chrome
+                    [client-os] => Linux
+                    [user-agent] => Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.43 Safari/537.31
+                    [device-type] => desktop
+                    [client-type] => browser
+                )
+
+            [message] => Array
+                (
+                    [headers] => Array
+                        (
+                            [message-id] => 20130503182626.18666.16540@travel2latam.net
+                        )
+
+                )
+
+            [recipient] => alice@example.com
+            [event] => opened
+        )
+
+)

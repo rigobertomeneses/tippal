@@ -1,0 +1,321 @@
+{
+	"info": {
+		"_postman_id": "formaspago-api-collection",
+		"name": "GestionGo - Formas de Pago API",
+		"description": "Colección de endpoints para el módulo de Formas de Pago. La subida de imágenes está integrada en POST y PUT mediante el campo opcional 'imagen_base64'.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. GET - Listar Todas las Formas de Pago",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/formaspago.php?token={{token}}&compania={{compania}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"formaspago.php"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"description": "Token de autenticación del usuario"
+						},
+						{
+							"key": "compania",
+							"value": "{{compania}}",
+							"description": "ID de la compañía"
+						},
+						{
+							"key": "cuenta",
+							"value": "",
+							"description": "ID de cuenta (opcional, solo para perfil 1)",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Obtiene el listado completo de formas de pago según el perfil del usuario"
+			},
+			"response": []
+		},
+		{
+			"name": "2. GET - Buscar Forma de Pago por Nombre",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/formaspago.php?token={{token}}&compania={{compania}}&search=efectivo",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"formaspago.php"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						},
+						{
+							"key": "compania",
+							"value": "{{compania}}"
+						},
+						{
+							"key": "search",
+							"value": "efectivo",
+							"description": "Buscar por nombre"
+						}
+					]
+				},
+				"description": "Busca formas de pago por nombre (efectivo, transferencia, etc)"
+			},
+			"response": []
+		},
+		{
+			"name": "3. GET - Ver Forma de Pago por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/formaspago.php?token={{token}}&compania={{compania}}&id=1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"formaspago.php"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						},
+						{
+							"key": "compania",
+							"value": "{{compania}}"
+						},
+						{
+							"key": "id",
+							"value": "1",
+							"description": "ID de la forma de pago"
+						}
+					]
+				},
+				"description": "Obtiene una forma de pago específica por ID"
+			},
+			"response": []
+		},
+		{
+			"name": "4. POST - Crear Forma de Pago (Sin Imagen)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"{{token}}\",\n    \"compania\": \"{{compania}}\",\n    \"lista_nombre\": \"Transferencia Bancaria\",\n    \"lista_orden\": \"50\",\n    \"lista_idrel\": \"\",\n    \"lista_cod\": \"\",\n    \"listaformapago_titular\": \"Juan Pérez\",\n    \"listaformapago_documento\": \"12345678\",\n    \"listaformapago_email\": \"juan@example.com\",\n    \"listaformapago_banco\": \"Banco Nacional\",\n    \"listaformapago_tipocuenta\": \"Corriente\",\n    \"listaformapago_nrocuenta\": \"1234567890\",\n    \"listaformapago_otros\": \"CBU: 0123456789012345678901\",\n    \"listaformapago_token\": \"\",\n    \"listaformapago_clavepublica\": \"\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/formaspago.php",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"formaspago.php"
+					]
+				},
+				"description": "Crea una nueva forma de pago sin imagen (usará 0.jpg por defecto)"
+			},
+			"response": []
+		},
+		{
+			"name": "5. POST - Crear Forma de Pago (Con Imagen Base64)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"{{token}}\",\n    \"compania\": \"{{compania}}\",\n    \"lista_nombre\": \"Cripto Wallet\",\n    \"lista_orden\": \"60\",\n    \"lista_idrel\": \"\",\n    \"lista_cod\": \"CRYPTO\",\n    \"listaformapago_titular\": \"Wallet Owner\",\n    \"listaformapago_documento\": \"\",\n    \"listaformapago_email\": \"wallet@example.com\",\n    \"listaformapago_banco\": \"\",\n    \"listaformapago_tipocuenta\": \"\",\n    \"listaformapago_nrocuenta\": \"0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb\",\n    \"listaformapago_otros\": \"Wallet Ethereum\",\n    \"listaformapago_token\": \"\",\n    \"listaformapago_clavepublica\": \"\",\n    \"imagen_base64\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/formaspago.php",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"formaspago.php"
+					]
+				},
+				"description": "Crea una nueva forma de pago CON imagen Base64. La imagen se procesará y guardará automáticamente con nombre único."
+			},
+			"response": []
+		},
+		{
+			"name": "6. PUT - Actualizar Forma de Pago (Sin cambiar imagen)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"{{token}}\",\n    \"compania\": \"{{compania}}\",\n    \"lista_id\": \"1\",\n    \"listacuenta_id\": \"\",\n    \"listaformapago_id\": \"\",\n    \"lista_nombre\": \"Efectivo Actualizado\",\n    \"lista_orden\": \"1\",\n    \"lista_idrel\": \"\",\n    \"lista_cod\": \"\",\n    \"listaformapago_titular\": \"María González\",\n    \"listaformapago_documento\": \"87654321\",\n    \"listaformapago_email\": \"maria@example.com\",\n    \"listaformapago_banco\": \"\",\n    \"listaformapago_tipocuenta\": \"\",\n    \"listaformapago_nrocuenta\": \"\",\n    \"listaformapago_otros\": \"Efectivo en punto de venta\",\n    \"listaformapago_token\": \"\",\n    \"listaformapago_clavepublica\": \"\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/formaspago.php",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"formaspago.php"
+					]
+				},
+				"description": "Actualiza datos de una forma de pago existente sin modificar la imagen"
+			},
+			"response": []
+		},
+		{
+			"name": "7. PUT - Actualizar Forma de Pago (Cambiar imagen)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"{{token}}\",\n    \"compania\": \"{{compania}}\",\n    \"lista_id\": \"1\",\n    \"listacuenta_id\": \"\",\n    \"listaformapago_id\": \"\",\n    \"lista_nombre\": \"Efectivo con Nueva Imagen\",\n    \"lista_orden\": \"1\",\n    \"lista_idrel\": \"\",\n    \"lista_cod\": \"\",\n    \"listaformapago_titular\": \"Pedro Ramírez\",\n    \"listaformapago_documento\": \"11223344\",\n    \"listaformapago_email\": \"pedro@example.com\",\n    \"listaformapago_banco\": \"\",\n    \"listaformapago_tipocuenta\": \"\",\n    \"listaformapago_nrocuenta\": \"\",\n    \"listaformapago_otros\": \"Efectivo actualizado\",\n    \"listaformapago_token\": \"\",\n    \"listaformapago_clavepublica\": \"\",\n    \"imagen_base64\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/formaspago.php",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"formaspago.php"
+					]
+				},
+				"description": "Actualiza una forma de pago Y su imagen. La imagen anterior se eliminará automáticamente."
+			},
+			"response": []
+		},
+		{
+			"name": "8. DELETE - Eliminar Forma de Pago",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"{{token}}\",\n    \"compania\": \"{{compania}}\",\n    \"lista_id\": \"999\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/formaspago.php",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"formaspago.php"
+					]
+				},
+				"description": "Elimina (lógicamente) una forma de pago. No se puede eliminar formas predeterminadas del sistema."
+			},
+			"response": []
+		},
+		{
+			"name": "9. PUT - Activar/Desactivar Forma de Pago",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"{{token}}\",\n    \"compania\": \"{{compania}}\",\n    \"lista_id\": \"1\",\n    \"activo\": \"0\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/cambiarestatus.php",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"cambiarestatus.php"
+					]
+				},
+				"description": "Activa (1) o desactiva (0) una forma de pago sin eliminarla. Use activo=1 para activar o activo=0 para desactivar."
+			},
+			"response": []
+		},
+		{
+			"name": "10. GET - Listar Formas de Pago Principales",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/formaspago_principales.php?token={{token}}&compania={{compania}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"formaspago_principales.php"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"description": "Token de autenticación del usuario"
+						},
+						{
+							"key": "compania",
+							"value": "{{compania}}",
+							"description": "ID de la compañía"
+						}
+					]
+				},
+				"description": "Obtiene el listado de formas de pago principales (del sistema) que se usan como 'Plataforma de Pago' para relacionar con otras formas de pago."
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://www.gestiongo.com/admin/backws/formaspago",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "democliente",
+			"type": "string"
+		},
+		{
+			"key": "compania",
+			"value": "381",
+			"type": "string"
+		}
+	]
+}

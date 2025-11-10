@@ -1,0 +1,564 @@
+{
+	"info": {
+		"_postman_id": "requisitos-api-2025",
+		"name": "Requisitos API - GestionGo",
+		"description": "Colección completa para testing del módulo de Requisitos migrado a API REST.\n\n**Base URL:** https://www.gestiongo.com/admin/backws/requisitos/\n\n**Variables necesarias:**\n- `base_url`: https://www.gestiongo.com/admin/backws/requisitos\n- `token`: Token de autenticación del usuario\n- `compania`: ID de compañía (ej: 473)\n\n**Autor:** API Migration Team\n**Fecha:** 2025-10-09",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Configuración de Requisitos",
+			"item": [
+				{
+					"name": "1.1 Listar Todos los Requisitos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/requisitos.php?token={{token}}&compania={{compania}}",
+							"host": ["{{base_url}}"],
+							"path": ["requisitos.php"],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"description": "Token de autenticación"
+								},
+								{
+									"key": "compania",
+									"value": "{{compania}}",
+									"description": "ID de compañía"
+								}
+							]
+						},
+						"description": "Obtiene todos los tipos de requisitos configurados.\n\n**Respuesta esperada:** code: 100\n**Filtrado:** Según perfil_id del usuario"
+					},
+					"response": []
+				},
+				{
+					"name": "1.2 Obtener Requisito Específico",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/requisitos.php?token={{token}}&compania={{compania}}&id=1795",
+							"host": ["{{base_url}}"],
+							"path": ["requisitos.php"],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "compania",
+									"value": "{{compania}}"
+								},
+								{
+									"key": "id",
+									"value": "1795",
+									"description": "ID del requisito (lista_id)"
+								}
+							]
+						},
+						"description": "Obtiene el detalle de un requisito específico incluyendo personalización."
+					},
+					"response": []
+				},
+				{
+					"name": "1.3 Crear Requisito (sin imagen)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\": \"{{token}}\",\n  \"compania\": \"{{compania}}\",\n  \"lista_nombre\": \"Certificado de Antecedentes Penales\",\n  \"lista_descrip\": \"Certificado vigente emitido por DNMC\",\n  \"lista_cod\": \"CERT_PENAL\",\n  \"lista_orden\": 10,\n  \"perfil_id\": \"4\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/requisitos.php",
+							"host": ["{{base_url}}"],
+							"path": ["requisitos.php"]
+						},
+						"description": "Crea un nuevo tipo de requisito sin imagen.\n\n**Campos requeridos:**\n- token\n- lista_nombre\n- perfil_id\n\n**Permisos:** Solo perfiles 1, 2, 3"
+					},
+					"response": []
+				},
+				{
+					"name": "1.4 Crear Requisito (con imagen)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\": \"{{token}}\",\n  \"compania\": \"{{compania}}\",\n  \"lista_nombre\": \"Foto del Vehículo\",\n  \"lista_descrip\": \"Foto frontal del vehículo en buenas condiciones\",\n  \"lista_cod\": \"FOTO_VEH\",\n  \"lista_orden\": 15,\n  \"perfil_id\": \"21\",\n  \"imagen\": \"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCwABmQ/9k=\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/requisitos.php",
+							"host": ["{{base_url}}"],
+							"path": ["requisitos.php"]
+						},
+						"description": "Crea un nuevo tipo de requisito con imagen en base64.\n\n**Nota:** La imagen debe tener prefijo: data:image/jpeg;base64,\n\n**Formatos soportados:** JPG, PNG, GIF"
+					},
+					"response": []
+				},
+				{
+					"name": "1.5 Actualizar Requisito",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\": \"{{token}}\",\n  \"lista_id\": \"1795\",\n  \"compania\": \"{{compania}}\",\n  \"lista_nombre\": \"Licencia de Conducir Nacional (Actualizada)\",\n  \"lista_descrip\": \"Licencia clase B vigente - actualizada\",\n  \"lista_orden\": 2,\n  \"perfil_id\": \"4\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/requisitos.php",
+							"host": ["{{base_url}}"],
+							"path": ["requisitos.php"]
+						},
+						"description": "Actualiza un requisito existente.\n\n**Campos requeridos:**\n- token\n- lista_id\n\n**Permisos:** Solo perfiles 1, 2, 3"
+					},
+					"response": []
+				},
+				{
+					"name": "1.6 Eliminar Requisito",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\": \"{{token}}\",\n  \"lista_id\": \"1800\",\n  \"compania\": \"{{compania}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/requisitos.php",
+							"host": ["{{base_url}}"],
+							"path": ["requisitos.php"]
+						},
+						"description": "Elimina un requisito (borrado lógico).\n\n**Comportamiento:**\n- Si lista_ppal=1: Solo marca inactivo\n- Si lista_ppal=0: Borrado lógico completo\n\n**Permisos:** Solo perfiles 1, 2, 3"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints para gestionar la configuración de tipos de requisitos."
+		},
+		{
+			"name": "2. Requisitos de Usuarios",
+			"item": [
+				{
+					"name": "2.1 Listar Requisitos de Usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/requisitousuario.php?token={{token}}&compania={{compania}}&pagina=1&limite=20",
+							"host": ["{{base_url}}"],
+							"path": ["requisitousuario.php"],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "compania",
+									"value": "{{compania}}"
+								},
+								{
+									"key": "pagina",
+									"value": "1",
+									"description": "Número de página"
+								},
+								{
+									"key": "limite",
+									"value": "20",
+									"description": "Registros por página"
+								}
+							]
+						},
+						"description": "Lista todos los requisitos cargados por usuarios con paginación.\n\n**Filtros opcionales:**\n- estatus: ID de estatus\n- fecha_desde: YYYY-MM-DD\n- fecha_hasta: YYYY-MM-DD\n- usuario_id: ID del usuario\n- tipo_requisito: ID del tipo"
+					},
+					"response": []
+				},
+				{
+					"name": "2.2 Listar con Filtros",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/requisitousuario.php?token={{token}}&compania={{compania}}&estatus=52&fecha_desde=2025-09-01&fecha_hasta=2025-10-09&pagina=1&limite=50",
+							"host": ["{{base_url}}"],
+							"path": ["requisitousuario.php"],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "compania",
+									"value": "{{compania}}"
+								},
+								{
+									"key": "estatus",
+									"value": "52",
+									"description": "ID 52 = En revisión"
+								},
+								{
+									"key": "fecha_desde",
+									"value": "2025-09-01"
+								},
+								{
+									"key": "fecha_hasta",
+									"value": "2025-10-09"
+								},
+								{
+									"key": "pagina",
+									"value": "1"
+								},
+								{
+									"key": "limite",
+									"value": "50"
+								}
+							]
+						},
+						"description": "Lista requisitos aplicando múltiples filtros."
+					},
+					"response": []
+				},
+				{
+					"name": "2.3 Ver Detalle de Requisito (con archivos)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/requisitousuario.php?token={{token}}&compania={{compania}}&id=462",
+							"host": ["{{base_url}}"],
+							"path": ["requisitousuario.php"],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{token}}"
+								},
+								{
+									"key": "compania",
+									"value": "{{compania}}"
+								},
+								{
+									"key": "id",
+									"value": "462",
+									"description": "ID del requisito"
+								}
+							]
+						},
+						"description": "Obtiene el detalle completo de un requisito incluyendo todos los archivos adjuntos."
+					},
+					"response": []
+				},
+				{
+					"name": "2.4 Cargar Documento (Imagen)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\": \"{{token}}\",\n  \"compania\": \"{{compania}}\",\n  \"usuario_id\": \"7890\",\n  \"tipo_requisito\": \"1795\",\n  \"archivo\": \"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCABkAGQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD\",\n  \"archivo_nombre\": \"licencia_frente.jpg\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/requisitousuario.php",
+							"host": ["{{base_url}}"],
+							"path": ["requisitousuario.php"]
+						},
+						"description": "Carga un documento de usuario (imagen JPG).\n\n**Campos requeridos:**\n- token\n- compania\n- usuario_id\n- tipo_requisito\n- archivo (base64)\n\n**Comportamiento:**\n- Si el usuario ya tiene un requisito de ese tipo, agrega el archivo\n- Si no, crea nuevo requisito con estatus \"Pendiente\""
+					},
+					"response": []
+				},
+				{
+					"name": "2.5 Cargar Documento (PDF)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\": \"{{token}}\",\n  \"compania\": \"{{compania}}\",\n  \"usuario_id\": \"7890\",\n  \"tipo_requisito\": \"1795\",\n  \"archivo\": \"data:application/pdf;base64,JVBERi0xLjcKCjEgMCBvYmogICUgZW50cnkgcG9pbnQKPDwKICAvVHlwZSAvQ2F0YWxvZwogIC9QYWdlcyAyIDAgUgo+PgplbmRvYmoKCjIgMCBvYmoKPDwKICAvVHlwZSAvUGFnZXMKICAvTWVkaWFCb3ggWyAwIDAgMjAwIDIwMCBdCiAgL0NvdW50IDEKICAvS2lkcyBbIDMgMCBSIF0KPj4KZW5kb2JqCgozIDAgb2JqCjw8CiAgL1R5cGUgL1BhZ2UKICAvUGFyZW50IDIgMCBSCiAgL1Jlc291cmNlcyA8PAogICAgL0ZvbnQgPDwKICAgICAgL0YxIDQgMCBSIAogICAgPj4KICA+PgogIC9Db250ZW50cyA1IDAgUgo+PgplbmRvYmoKCjQgMCBvYmoKPDwKICAvVHlwZSAvRm9udAogIC9TdWJ0eXBlIC9UeXBlMQogIC9CYXNlRm9udCAvVGltZXMtUm9tYW4KPj4KZW5kb2JqCgo1IDAgb2JqICAlIHBhZ2UgY29udGVudAo8PAogIC9MZW5ndGggNDQKPj4Kc3RyZWFtCkJUCjcwIDUwIFRECi9GMSAxMiBUZgooSGVsbG8sIHdvcmxkISkgVGoKRVQKZW5kc3RyZWFtCmVuZG9iagoKeHJlZgowIDYKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDEwIDAwMDAwIG4gCjAwMDAwMDAwNzkgMDAwMDAgbiAKMDAwMDAwMDE3MyAwMDAwMCBuIAowMDAwMDAwMzAxIDAwMDAwIG4gCjAwMDAwMDAzODAgMDAwMDAgbiAKdHJhaWxlcgo8PAogIC9TaXplIDYKICAvUm9vdCAxIDAgUgo+PgpzdGFydHhyZWYKNDkyCiUlRU9G\",\n  \"archivo_nombre\": \"certificado_antecedentes.pdf\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/requisitousuario.php",
+							"host": ["{{base_url}}"],
+							"path": ["requisitousuario.php"]
+						},
+						"description": "Carga un documento PDF.\n\n**Nota:** El PDF debe tener prefijo: data:application/pdf;base64,"
+					},
+					"response": []
+				},
+				{
+					"name": "2.6 Cambiar Estatus a En Revisión",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\": \"{{token}}\",\n  \"accion\": \"cambiar_estatus\",\n  \"requisito_id\": \"462\",\n  \"estatus\": \"52\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/requisitousuario.php",
+							"host": ["{{base_url}}"],
+							"path": ["requisitousuario.php"]
+						},
+						"description": "Cambia el estatus de un requisito a \"En revisión\" (ID 52).\n\n**Estatus comunes:**\n- 4: Pendiente\n- 52: En revisión\n- 53: Rechazado\n- 54: Confirmado/Aprobado\n\n**Funcionalidad adicional:**\nActualiza automáticamente el estatus general del usuario con VerificarUsuarioEstatus()"
+					},
+					"response": []
+				},
+				{
+					"name": "2.7 Cambiar Estatus a Confirmado",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\": \"{{token}}\",\n  \"accion\": \"cambiar_estatus\",\n  \"requisito_id\": \"462\",\n  \"estatus\": \"54\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/requisitousuario.php",
+							"host": ["{{base_url}}"],
+							"path": ["requisitousuario.php"]
+						},
+						"description": "Aprueba un requisito cambiando su estatus a \"Confirmado\" (ID 54).\n\n**Permisos:** Solo perfiles 1, 2, 3"
+					},
+					"response": []
+				},
+				{
+					"name": "2.8 Desactivar Archivo Adjunto",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\": \"{{token}}\",\n  \"accion\": \"cambiar_estatus_archivo\",\n  \"requisitoarch_id\": \"789\",\n  \"estatus\": \"0\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/requisitousuario.php",
+							"host": ["{{base_url}}"],
+							"path": ["requisitousuario.php"]
+						},
+						"description": "Desactiva un archivo adjunto específico.\n\n**Estatus:**\n- 0: Inactivo\n- 1: Activo\n\n**Permisos:** Solo perfiles 1, 2, 3"
+					},
+					"response": []
+				},
+				{
+					"name": "2.9 Eliminar Requisito Completo",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\": \"{{token}}\",\n  \"tipo\": \"requisito\",\n  \"requisito_id\": \"462\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/requisitousuario.php",
+							"host": ["{{base_url}}"],
+							"path": ["requisitousuario.php"]
+						},
+						"description": "Elimina un requisito completo (borrado lógico).\n\n**Nota:** Esto marca el requisito completo como eliminado, no solo un archivo.\n\n**Permisos:** Solo perfiles 1, 2, 3"
+					},
+					"response": []
+				},
+				{
+					"name": "2.10 Eliminar Solo un Archivo",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\": \"{{token}}\",\n  \"tipo\": \"archivo\",\n  \"requisitoarch_id\": \"789\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/requisitousuario.php",
+							"host": ["{{base_url}}"],
+							"path": ["requisitousuario.php"]
+						},
+						"description": "Elimina solo un archivo adjunto específico.\n\n**Nota:** El requisito principal permanece, solo se elimina el archivo.\n\n**Permisos:** Solo perfiles 1, 2, 3"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints para gestionar requisitos cargados por usuarios."
+		},
+		{
+			"name": "3. Tests de Validación",
+			"item": [
+				{
+					"name": "3.1 Token Inválido",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/requisitos.php?token=INVALID_TOKEN&compania={{compania}}",
+							"host": ["{{base_url}}"],
+							"path": ["requisitos.php"],
+							"query": [
+								{
+									"key": "token",
+									"value": "INVALID_TOKEN"
+								},
+								{
+									"key": "compania",
+									"value": "{{compania}}"
+								}
+							]
+						},
+						"description": "Prueba con token inválido.\n\n**Respuesta esperada:** code: 104\n**Mensaje:** Token no encontrado"
+					},
+					"response": []
+				},
+				{
+					"name": "3.2 Sin Token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/requisitos.php?compania={{compania}}",
+							"host": ["{{base_url}}"],
+							"path": ["requisitos.php"],
+							"query": [
+								{
+									"key": "compania",
+									"value": "{{compania}}"
+								}
+							]
+						},
+						"description": "Prueba sin token.\n\n**Respuesta esperada:** code: 102\n**Mensaje:** Token es requerido"
+					},
+					"response": []
+				},
+				{
+					"name": "3.3 Crear sin Datos Requeridos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"token\": \"{{token}}\",\n  \"compania\": \"{{compania}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/requisitos.php",
+							"host": ["{{base_url}}"],
+							"path": ["requisitos.php"]
+						},
+						"description": "Prueba crear sin datos requeridos.\n\n**Respuesta esperada:** code: 102\n**Mensaje:** Nombre del requisito es requerido o Perfil es requerido"
+					},
+					"response": []
+				}
+			],
+			"description": "Tests de validación de errores y seguridad."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});",
+					"",
+					"pm.test(\"Response is JSON\", function () {",
+					"    pm.response.to.be.json;",
+					"});",
+					"",
+					"pm.test(\"Has code field\", function () {",
+					"    var jsonData = pm.response.json();",
+					"    pm.expect(jsonData).to.have.property('code');",
+					"});",
+					"",
+					"pm.test(\"Has message field\", function () {",
+					"    var jsonData = pm.response.json();",
+					"    pm.expect(jsonData).to.have.property('message');",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://www.gestiongo.com/admin/backws/requisitos",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "TU_TOKEN_AQUI",
+			"type": "string"
+		},
+		{
+			"key": "compania",
+			"value": "473",
+			"type": "string"
+		}
+	]
+}

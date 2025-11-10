@@ -1,0 +1,360 @@
+{
+	"info": {
+		"_postman_id": "depositos-api-gestiongo-2025",
+		"name": "GestionGo API - Depósitos",
+		"description": "Colección de endpoints para el módulo de Depósitos de GestionGo.\n\n**Fecha de creación**: 07/10/2025\n**Versión**: 1.0\n**Base URL**: https://www.gestiongo.com/admin/backws/depositos\n\n## Endpoints disponibles:\n\n1. **GET /depositos** - Listar depósitos con filtros\n2. **GET /depositos?id={id}** - Obtener depósito específico\n3. **PUT /cambiarestatus** - Cambiar estatus del depósito (procesa balance)\n4. **PUT /cambiaractivo** - Activar/Desactivar depósito\n5. **DELETE /eliminar** - Eliminar depósito (lógico)\n\n## Variables de entorno sugeridas:\n\n- `base_url`: https://www.gestiongo.com/admin/backws/depositos\n- `token`: democliente\n- `compania`: 381",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Listar Depósitos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.gestiongo.com/admin/backws/depositos/depositos?token=democliente&compania=381&limit=10&page=1",
+					"protocol": "https",
+					"host": [
+						"www",
+						"gestiongo",
+						"com"
+					],
+					"path": [
+						"admin",
+						"backws",
+						"depositos",
+						"depositos"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "democliente",
+							"description": "Token de autenticación del usuario"
+						},
+						{
+							"key": "compania",
+							"value": "381",
+							"description": "ID de la compañía"
+						},
+						{
+							"key": "limit",
+							"value": "10",
+							"description": "Cantidad de registros por página (default: 50)"
+						},
+						{
+							"key": "page",
+							"value": "1",
+							"description": "Número de página (default: 1)"
+						},
+						{
+							"key": "estatus",
+							"value": "",
+							"description": "Filtrar por ID de estatus (opcional)",
+							"disabled": true
+						},
+						{
+							"key": "fechadesde",
+							"value": "",
+							"description": "Fecha desde (dd/mm/yyyy o yyyy-mm-dd) (opcional)",
+							"disabled": true
+						},
+						{
+							"key": "fechahasta",
+							"value": "",
+							"description": "Fecha hasta (dd/mm/yyyy o yyyy-mm-dd) (opcional)",
+							"disabled": true
+						},
+						{
+							"key": "search",
+							"value": "",
+							"description": "Búsqueda por nombre, referencia, banco o código (opcional)",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Obtiene un listado de depósitos con filtros opcionales.\n\n**Filtros disponibles:**\n- `estatus`: ID de estatus del depósito\n- `fechadesde`: Fecha inicio del rango\n- `fechahasta`: Fecha fin del rango\n- `search`: Búsqueda por texto\n- `page`: Número de página\n- `limit`: Registros por página\n\n**Filtros por perfil:**\n- Perfil 1: Ve todos los depósitos\n- Perfil 2: Solo de su cuenta\n- Perfil 3 y 7: Solo de su cuenta y compañía\n- Otros: Solo sus propios depósitos"
+			},
+			"response": []
+		},
+		{
+			"name": "2. Obtener Depósito por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.gestiongo.com/admin/backws/depositos/depositos?token=democliente&compania=381&id=123",
+					"protocol": "https",
+					"host": [
+						"www",
+						"gestiongo",
+						"com"
+					],
+					"path": [
+						"admin",
+						"backws",
+						"depositos",
+						"depositos"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "democliente",
+							"description": "Token de autenticación del usuario"
+						},
+						{
+							"key": "compania",
+							"value": "381",
+							"description": "ID de la compañía"
+						},
+						{
+							"key": "id",
+							"value": "123",
+							"description": "ID del depósito a consultar (CAMBIAR por un ID real)"
+						}
+					]
+				},
+				"description": "Obtiene los detalles completos de un depósito específico.\n\n**Nota:** Cambiar el parámetro `id=123` por un ID de depósito real existente en la base de datos.\n\n**Respuesta incluye:**\n- Datos completos del depósito\n- Información del usuario\n- Datos de la cuenta y compañía\n- URLs completas de imágenes adjuntas\n- Estatus actual"
+			},
+			"response": []
+		},
+		{
+			"name": "3. Cambiar Estatus del Depósito",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"democliente\",\n    \"compania\": 381,\n    \"pago_id\": 123,\n    \"estatus\": 1234\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://www.gestiongo.com/admin/backws/depositos/cambiarestatus",
+					"protocol": "https",
+					"host": [
+						"www",
+						"gestiongo",
+						"com"
+					],
+					"path": [
+						"admin",
+						"backws",
+						"depositos",
+						"cambiarestatus"
+					]
+				},
+				"description": "Cambia el estatus de un depósito.\n\n**⚠️ IMPORTANTE:** Si el estatus es \"Aprobado\" (código 2, lista 55) o \"Rechazado\" (código 3, lista 55), se procesa automáticamente el balance del usuario.\n\n**Al aprobar:**\n1. Resta de `usuariobalance_bloqueado`\n2. Suma a `usuariobalance_disponible`\n3. Suma a `usuariobalance_total`\n4. Marca `pago_procesado = 1`\n5. Envía notificación push\n\n**Al rechazar:**\n1. Resta de `usuariobalance_bloqueado`\n2. Resta de `usuariobalance_total`\n3. Envía notificación push\n\n**Parámetros:**\n- `token`: Token de autenticación\n- `compania`: ID de la compañía\n- `pago_id`: ID del depósito (CAMBIAR por ID real)\n- `estatus`: Nuevo ID de estatus (CAMBIAR por ID real de la lista 55)"
+			},
+			"response": []
+		},
+		{
+			"name": "4. Activar Depósito",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"democliente\",\n    \"compania\": 381,\n    \"pago_id\": 123,\n    \"activo\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://www.gestiongo.com/admin/backws/depositos/cambiaractivo",
+					"protocol": "https",
+					"host": [
+						"www",
+						"gestiongo",
+						"com"
+					],
+					"path": [
+						"admin",
+						"backws",
+						"depositos",
+						"cambiaractivo"
+					]
+				},
+				"description": "Activa un depósito previamente desactivado.\n\n**Parámetros:**\n- `token`: Token de autenticación\n- `compania`: ID de la compañía\n- `pago_id`: ID del depósito (CAMBIAR por ID real)\n- `activo`: 1 para activar, 0 para desactivar\n\n**Diferencia con eliminar:**\n- **Cambiar activo:** Solo cambia el campo `pago_activo` (0/1). El depósito sigue visible en el sistema.\n- **Eliminar:** Marca `pago_activo = 0` Y `pago_eliminado = 1`. El depósito se oculta completamente."
+			},
+			"response": []
+		},
+		{
+			"name": "5. Desactivar Depósito",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"democliente\",\n    \"compania\": 381,\n    \"pago_id\": 123,\n    \"activo\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://www.gestiongo.com/admin/backws/depositos/cambiaractivo",
+					"protocol": "https",
+					"host": [
+						"www",
+						"gestiongo",
+						"com"
+					],
+					"path": [
+						"admin",
+						"backws",
+						"depositos",
+						"cambiaractivo"
+					]
+				},
+				"description": "Desactiva un depósito sin eliminarlo.\n\n**Parámetros:**\n- `token`: Token de autenticación\n- `compania`: ID de la compañía\n- `pago_id`: ID del depósito (CAMBIAR por ID real)\n- `activo`: 0 para desactivar, 1 para activar"
+			},
+			"response": []
+		},
+		{
+			"name": "6. Eliminar Depósito",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"democliente\",\n    \"compania\": 381,\n    \"pago_id\": 123\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://www.gestiongo.com/admin/backws/depositos/eliminar",
+					"protocol": "https",
+					"host": [
+						"www",
+						"gestiongo",
+						"com"
+					],
+					"path": [
+						"admin",
+						"backws",
+						"depositos",
+						"eliminar"
+					]
+				},
+				"description": "Realiza eliminación lógica del depósito.\n\n**⚠️ IMPORTANTE:** Esta es una eliminación lógica, NO física.\n\n**Cambios realizados:**\n- `pago_activo = 0`\n- `pago_eliminado = 1`\n\nEl registro permanece en la base de datos pero no se muestra en los listados.\n\n**Parámetros:**\n- `token`: Token de autenticación\n- `compania`: ID de la compañía\n- `pago_id`: ID del depósito a eliminar (CAMBIAR por ID real)"
+			},
+			"response": []
+		},
+		{
+			"name": "7. Listar con Filtros Avanzados",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.gestiongo.com/admin/backws/depositos/depositos?token=democliente&compania=381&fechadesde=01/10/2025&fechahasta=31/10/2025&estatus=1234&search=transferencia&limit=20&page=1",
+					"protocol": "https",
+					"host": [
+						"www",
+						"gestiongo",
+						"com"
+					],
+					"path": [
+						"admin",
+						"backws",
+						"depositos",
+						"depositos"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "democliente",
+							"description": "Token de autenticación"
+						},
+						{
+							"key": "compania",
+							"value": "381",
+							"description": "ID de la compañía"
+						},
+						{
+							"key": "fechadesde",
+							"value": "01/10/2025",
+							"description": "Fecha desde (formato: dd/mm/yyyy)"
+						},
+						{
+							"key": "fechahasta",
+							"value": "31/10/2025",
+							"description": "Fecha hasta (formato: dd/mm/yyyy)"
+						},
+						{
+							"key": "estatus",
+							"value": "1234",
+							"description": "ID de estatus (CAMBIAR por ID real)"
+						},
+						{
+							"key": "search",
+							"value": "transferencia",
+							"description": "Búsqueda por texto"
+						},
+						{
+							"key": "limit",
+							"value": "20",
+							"description": "Registros por página"
+						},
+						{
+							"key": "page",
+							"value": "1",
+							"description": "Número de página"
+						}
+					]
+				},
+				"description": "Ejemplo de listado con todos los filtros aplicados.\n\n**Filtros combinados:**\n- Rango de fechas (octubre 2025)\n- Estatus específico\n- Búsqueda por texto \"transferencia\"\n- Paginación de 20 registros\n\n**Nota:** Ajustar los valores según los datos reales en la base de datos."
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://www.gestiongo.com/admin/backws/depositos",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "democliente",
+			"type": "string"
+		},
+		{
+			"key": "compania",
+			"value": "381",
+			"type": "string"
+		}
+	]
+}

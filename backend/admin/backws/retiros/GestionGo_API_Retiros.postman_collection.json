@@ -1,0 +1,399 @@
+{
+	"info": {
+		"_postman_id": "retiros-api-gestiongo-2025",
+		"name": "GestionGo API - Retiros",
+		"description": "Colección de endpoints para el módulo de Retiros de GestionGo.\n\n**Fecha de creación**: 07/10/2025\n**Versión**: 1.0\n**Base URL**: https://www.gestiongo.com/admin/backws/retiros\n\n## Endpoints disponibles:\n\n1. **GET /retiros** - Listar retiros con filtros\n2. **GET /retiros?id={id}** - Obtener retiro específico\n3. **PUT /cambiarestatus** - Cambiar estatus del retiro (procesa balance)\n4. **PUT /cambiaractivo** - Activar/Desactivar retiro\n5. **DELETE /eliminar** - Eliminar retiro (lógico)\n\n## Variables de entorno sugeridas:\n\n- `base_url`: https://www.gestiongo.com/admin/backws/retiros\n- `token`: democliente\n- `compania`: 381",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Listar Retiros",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.gestiongo.com/admin/backws/retiros/retiros?token=democliente&compania=381&limit=10&page=1",
+					"protocol": "https",
+					"host": [
+						"www",
+						"gestiongo",
+						"com"
+					],
+					"path": [
+						"admin",
+						"backws",
+						"retiros",
+						"retiros"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "democliente",
+							"description": "Token de autenticación del usuario"
+						},
+						{
+							"key": "compania",
+							"value": "381",
+							"description": "ID de la compañía"
+						},
+						{
+							"key": "limit",
+							"value": "10",
+							"description": "Cantidad de registros por página (default: 50)"
+						},
+						{
+							"key": "page",
+							"value": "1",
+							"description": "Número de página (default: 1)"
+						},
+						{
+							"key": "estatus",
+							"value": "",
+							"description": "Filtrar por ID de estatus (lista 64) (opcional)",
+							"disabled": true
+						},
+						{
+							"key": "fechadesde",
+							"value": "",
+							"description": "Fecha desde (dd/mm/yyyy o yyyy-mm-dd) (opcional)",
+							"disabled": true
+						},
+						{
+							"key": "fechahasta",
+							"value": "",
+							"description": "Fecha hasta (dd/mm/yyyy o yyyy-mm-dd) (opcional)",
+							"disabled": true
+						},
+						{
+							"key": "search",
+							"value": "",
+							"description": "Búsqueda por nombre, banco, cuenta, titular (opcional)",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Obtiene un listado de retiros con filtros opcionales.\n\n**Filtros disponibles:**\n- `estatus`: ID de estatus del retiro (lista 64)\n- `fechadesde`: Fecha inicio del rango\n- `fechahasta`: Fecha fin del rango\n- `search`: Búsqueda por texto\n- `page`: Número de página\n- `limit`: Registros por página\n\n**Filtros por perfil:**\n- Perfil 1: Ve todos los retiros\n- Perfil 2: Solo de su cuenta\n- Perfil 3 y 7: Solo de su cuenta y compañía\n- Otros: Solo sus propios retiros"
+			},
+			"response": []
+		},
+		{
+			"name": "2. Obtener Retiro por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.gestiongo.com/admin/backws/retiros/retiros?token=democliente&compania=381&id=123",
+					"protocol": "https",
+					"host": [
+						"www",
+						"gestiongo",
+						"com"
+					],
+					"path": [
+						"admin",
+						"backws",
+						"retiros",
+						"retiros"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "democliente",
+							"description": "Token de autenticación del usuario"
+						},
+						{
+							"key": "compania",
+							"value": "381",
+							"description": "ID de la compañía"
+						},
+						{
+							"key": "id",
+							"value": "123",
+							"description": "ID del retiro a consultar (CAMBIAR por un ID real)"
+						}
+					]
+				},
+				"description": "Obtiene los detalles completos de un retiro específico.\n\n**Nota:** Cambiar el parámetro `id=123` por un ID de retiro real existente en la base de datos.\n\n**Respuesta incluye:**\n- Datos completos del retiro\n- Información del usuario\n- Datos de la cuenta y compañía\n- Información bancaria (banco, titular, cuenta)\n- Estatus actual"
+			},
+			"response": []
+		},
+		{
+			"name": "3. Cambiar Estatus del Retiro - Aprobar",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"democliente\",\n    \"compania\": 381,\n    \"usuariobalanceretiro_id\": 123,\n    \"estatus\": 1234\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://www.gestiongo.com/admin/backws/retiros/cambiarestatus",
+					"protocol": "https",
+					"host": [
+						"www",
+						"gestiongo",
+						"com"
+					],
+					"path": [
+						"admin",
+						"backws",
+						"retiros",
+						"cambiarestatus"
+					]
+				},
+				"description": "Cambia el estatus de un retiro a \"Aprobado\".\n\n**⚠️ IMPORTANTE:** Si el estatus es \"Aprobado\" (código 2, lista 64), se procesa automáticamente el balance del usuario.\n\n**Al aprobar:**\n1. Resta de `usuariobalance_bloqueado`\n2. Resta de `usuariobalance_total`\n3. Marca `usuariobalanceretiro_procesado = 1`\n4. Envía notificación push\n\n**Parámetros:**\n- `token`: Token de autenticación\n- `compania`: ID de la compañía\n- `usuariobalanceretiro_id`: ID del retiro (CAMBIAR por ID real)\n- `estatus`: Nuevo ID de estatus aprobado (código 2, lista 64) (CAMBIAR por ID real)"
+			},
+			"response": []
+		},
+		{
+			"name": "4. Cambiar Estatus del Retiro - Rechazar",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"democliente\",\n    \"compania\": 381,\n    \"usuariobalanceretiro_id\": 123,\n    \"estatus\": 1235\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://www.gestiongo.com/admin/backws/retiros/cambiarestatus",
+					"protocol": "https",
+					"host": [
+						"www",
+						"gestiongo",
+						"com"
+					],
+					"path": [
+						"admin",
+						"backws",
+						"retiros",
+						"cambiarestatus"
+					]
+				},
+				"description": "Cambia el estatus de un retiro a \"Rechazado\".\n\n**⚠️ IMPORTANTE:** Si el estatus es \"Rechazado\" (código 3, lista 64), se procesa automáticamente el balance del usuario.\n\n**Al rechazar:**\n1. Resta de `usuariobalance_bloqueado`\n2. Suma a `usuariobalance_disponible` (devuelve el monto)\n3. Marca `usuariobalanceretiro_procesado = 1`\n4. Envía notificación push\n\n**Parámetros:**\n- `token`: Token de autenticación\n- `compania`: ID de la compañía\n- `usuariobalanceretiro_id`: ID del retiro (CAMBIAR por ID real)\n- `estatus`: Nuevo ID de estatus rechazado (código 3, lista 64) (CAMBIAR por ID real)"
+			},
+			"response": []
+		},
+		{
+			"name": "5. Activar Retiro",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"democliente\",\n    \"compania\": 381,\n    \"usuariobalanceretiro_id\": 123,\n    \"activo\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://www.gestiongo.com/admin/backws/retiros/cambiaractivo",
+					"protocol": "https",
+					"host": [
+						"www",
+						"gestiongo",
+						"com"
+					],
+					"path": [
+						"admin",
+						"backws",
+						"retiros",
+						"cambiaractivo"
+					]
+				},
+				"description": "Activa un retiro previamente desactivado.\n\n**Parámetros:**\n- `token`: Token de autenticación\n- `compania`: ID de la compañía\n- `usuariobalanceretiro_id`: ID del retiro (CAMBIAR por ID real)\n- `activo`: 1 para activar, 0 para desactivar\n\n**Diferencia con eliminar:**\n- **Cambiar activo:** Solo cambia el campo `usuariobalanceretiro_activo` (0/1). El retiro sigue visible en el sistema.\n- **Eliminar:** Marca `usuariobalanceretiro_activo = 0` Y `usuariobalanceretiro_eliminado = 1`. El retiro se oculta completamente."
+			},
+			"response": []
+		},
+		{
+			"name": "6. Desactivar Retiro",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"democliente\",\n    \"compania\": 381,\n    \"usuariobalanceretiro_id\": 123,\n    \"activo\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://www.gestiongo.com/admin/backws/retiros/cambiaractivo",
+					"protocol": "https",
+					"host": [
+						"www",
+						"gestiongo",
+						"com"
+					],
+					"path": [
+						"admin",
+						"backws",
+						"retiros",
+						"cambiaractivo"
+					]
+				},
+				"description": "Desactiva un retiro sin eliminarlo.\n\n**Parámetros:**\n- `token`: Token de autenticación\n- `compania`: ID de la compañía\n- `usuariobalanceretiro_id`: ID del retiro (CAMBIAR por ID real)\n- `activo`: 0 para desactivar, 1 para activar"
+			},
+			"response": []
+		},
+		{
+			"name": "7. Eliminar Retiro",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"democliente\",\n    \"compania\": 381,\n    \"usuariobalanceretiro_id\": 123\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://www.gestiongo.com/admin/backws/retiros/eliminar",
+					"protocol": "https",
+					"host": [
+						"www",
+						"gestiongo",
+						"com"
+					],
+					"path": [
+						"admin",
+						"backws",
+						"retiros",
+						"eliminar"
+					]
+				},
+				"description": "Realiza eliminación lógica del retiro.\n\n**⚠️ IMPORTANTE:** Esta es una eliminación lógica, NO física.\n\n**Cambios realizados:**\n- `usuariobalanceretiro_activo = 0`\n- `usuariobalanceretiro_eliminado = 1`\n\nEl registro permanece en la base de datos pero no se muestra en los listados.\n\n**Parámetros:**\n- `token`: Token de autenticación\n- `compania`: ID de la compañía\n- `usuariobalanceretiro_id`: ID del retiro a eliminar (CAMBIAR por ID real)"
+			},
+			"response": []
+		},
+		{
+			"name": "8. Listar con Filtros Avanzados",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.gestiongo.com/admin/backws/retiros/retiros?token=democliente&compania=381&fechadesde=01/10/2025&fechahasta=31/10/2025&estatus=1234&search=Banco%20Nacional&limit=20&page=1",
+					"protocol": "https",
+					"host": [
+						"www",
+						"gestiongo",
+						"com"
+					],
+					"path": [
+						"admin",
+						"backws",
+						"retiros",
+						"retiros"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "democliente",
+							"description": "Token de autenticación"
+						},
+						{
+							"key": "compania",
+							"value": "381",
+							"description": "ID de la compañía"
+						},
+						{
+							"key": "fechadesde",
+							"value": "01/10/2025",
+							"description": "Fecha desde (formato: dd/mm/yyyy)"
+						},
+						{
+							"key": "fechahasta",
+							"value": "31/10/2025",
+							"description": "Fecha hasta (formato: dd/mm/yyyy)"
+						},
+						{
+							"key": "estatus",
+							"value": "1234",
+							"description": "ID de estatus (CAMBIAR por ID real de lista 64)"
+						},
+						{
+							"key": "search",
+							"value": "Banco Nacional",
+							"description": "Búsqueda por texto"
+						},
+						{
+							"key": "limit",
+							"value": "20",
+							"description": "Registros por página"
+						},
+						{
+							"key": "page",
+							"value": "1",
+							"description": "Número de página"
+						}
+					]
+				},
+				"description": "Ejemplo de listado con todos los filtros aplicados.\n\n**Filtros combinados:**\n- Rango de fechas (octubre 2025)\n- Estatus específico\n- Búsqueda por texto \"Banco Nacional\"\n- Paginación de 20 registros\n\n**Nota:** Ajustar los valores según los datos reales en la base de datos."
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://www.gestiongo.com/admin/backws/retiros",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "democliente",
+			"type": "string"
+		},
+		{
+			"key": "compania",
+			"value": "381",
+			"type": "string"
+		}
+	]
+}

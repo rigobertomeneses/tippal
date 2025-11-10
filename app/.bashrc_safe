@@ -1,0 +1,23 @@
+#!/bin/bash
+# Safe Bash Configuration to Prevent Terminal Closing
+# Add this to your ~/.bashrc to prevent accidental terminal closures
+
+# Trap EXIT signal to prevent immediate closure
+trap 'echo "Sesión finalizada. Presiona Enter para cerrar..."; read' EXIT
+
+# Trap errors to keep terminal open
+trap 'echo "Error detectado. Terminal permanecerá abierta..."; sleep 2' ERR
+
+# Keep shell alive on command failures
+set +e
+
+# Prevent accidental ctrl+d closures (require multiple ctrl+d)
+export IGNOREEOF=3
+
+# Add helpful aliases
+alias exit='echo "¿Estás seguro que quieres salir? Usa exit! para forzar" && false'
+alias exit!='command exit'
+
+echo "🛡️  Protección de terminal activada"
+echo "💡 La terminal no se cerrará automáticamente ante errores"
+echo "💡 Usa 'exit!' (con !) para cerrar la terminal"

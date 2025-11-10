@@ -1,0 +1,23 @@
+RewriteEngine On 
+RewriteCond %{SERVER_PORT} 80 
+RewriteRule ^(.*)$ https://www.gestiongo.com/$1 [R=301,L]
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^gestiongo.com
+RewriteRule ^(.*)$ https://www.gestiongo.com/$1 [R=301,L]
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME}.php -f
+	RewriteRule ^(.*)$ $1.php
+</IfModule>
+RewriteEngine On
+RewriteBase /
+#RewriteBase /gestiongo/
+#RewriteRule ^([A-Za-z0-9]+)$ perfil.php?id=$1 [L]
+#RewriteRule ^proy/([0-9]+)/(.*) proyecto-detalle?id=$1
+#RewriteRule ^sistema/([0-9]+)/(.*) sistema-detalle?id=$1
+#RewriteRule ^demosistema/([0-9]+)/(.*) sistema-demo?id=$1
+#RewriteRule ^afiliado/([A-Za-z0-9]+)$ afiliado-perfil?id=$1 [L]
+RewriteRule ^blog/([0-9]+)/(.*) blog-detalle?id=$1
+RewriteRule ^demosistema/([A-Za-z0-9]+)$ demo-detalle?id=$1
+Options -Indexes

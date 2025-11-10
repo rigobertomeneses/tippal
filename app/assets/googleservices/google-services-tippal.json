@@ -1,0 +1,296 @@
+{
+  "project_info": {
+    "project_number": "777163485744",
+    "project_id": "sistemasgotaxi",
+    "storage_bucket": "sistemasgotaxi.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777163485744:android:c7736494f2a2f50a9273f5",
+        "android_client_info": {
+          "package_name": "com.sistemasgo.abundapay"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU-O6bEzcBtGmRXLpztIg17lYsd9h2L80"
+        },
+        {
+          "current_key": "AIzaSyD4fVUYon5vMrWwuJHgqOAnHklAQMqE2gs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777163485744:android:eb9123b50f0cf0fc9273f5",
+        "android_client_info": {
+          "package_name": "com.sistemasgo.amigomarket"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU-O6bEzcBtGmRXLpztIg17lYsd9h2L80"
+        },
+        {
+          "current_key": "AIzaSyD4fVUYon5vMrWwuJHgqOAnHklAQMqE2gs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777163485744:android:ca5e456dfd93d5139273f5",
+        "android_client_info": {
+          "package_name": "com.sistemasgo.corsepsa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU-O6bEzcBtGmRXLpztIg17lYsd9h2L80"
+        },
+        {
+          "current_key": "AIzaSyD4fVUYon5vMrWwuJHgqOAnHklAQMqE2gs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777163485744:android:702d84d1f39541f79273f5",
+        "android_client_info": {
+          "package_name": "com.sistemasgo.globalexpress"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU-O6bEzcBtGmRXLpztIg17lYsd9h2L80"
+        },
+        {
+          "current_key": "AIzaSyD4fVUYon5vMrWwuJHgqOAnHklAQMqE2gs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777163485744:android:9e359466510749fa9273f5",
+        "android_client_info": {
+          "package_name": "com.sistemasgo.laprida"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU-O6bEzcBtGmRXLpztIg17lYsd9h2L80"
+        },
+        {
+          "current_key": "AIzaSyD4fVUYon5vMrWwuJHgqOAnHklAQMqE2gs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777163485744:android:863756cc89b4a9979273f5",
+        "android_client_info": {
+          "package_name": "com.sistemasgo.panico"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU-O6bEzcBtGmRXLpztIg17lYsd9h2L80"
+        },
+        {
+          "current_key": "AIzaSyD4fVUYon5vMrWwuJHgqOAnHklAQMqE2gs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777163485744:android:b60522a43bb3bbb29273f5",
+        "android_client_info": {
+          "package_name": "com.sistemasgo.place99"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU-O6bEzcBtGmRXLpztIg17lYsd9h2L80"
+        },
+        {
+          "current_key": "AIzaSyD4fVUYon5vMrWwuJHgqOAnHklAQMqE2gs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777163485744:android:4b571fc6c78a40d49273f5",
+        "android_client_info": {
+          "package_name": "com.sistemasgo.pymego"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU-O6bEzcBtGmRXLpztIg17lYsd9h2L80"
+        },
+        {
+          "current_key": "AIzaSyD4fVUYon5vMrWwuJHgqOAnHklAQMqE2gs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777163485744:android:e9c6dd63d11406279273f5",
+        "android_client_info": {
+          "package_name": "com.sistemasgo.reinaroja"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU-O6bEzcBtGmRXLpztIg17lYsd9h2L80"
+        },
+        {
+          "current_key": "AIzaSyD4fVUYon5vMrWwuJHgqOAnHklAQMqE2gs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777163485744:android:559c5608592b218f9273f5",
+        "android_client_info": {
+          "package_name": "com.sistemasgo.satelitaxi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU-O6bEzcBtGmRXLpztIg17lYsd9h2L80"
+        },
+        {
+          "current_key": "AIzaSyD4fVUYon5vMrWwuJHgqOAnHklAQMqE2gs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777163485744:android:2be50431e272082d9273f5",
+        "android_client_info": {
+          "package_name": "com.sistemasgo.satelitetaxi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU-O6bEzcBtGmRXLpztIg17lYsd9h2L80"
+        },
+        {
+          "current_key": "AIzaSyD4fVUYon5vMrWwuJHgqOAnHklAQMqE2gs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777163485744:android:e75812ec212e28779273f5",
+        "android_client_info": {
+          "package_name": "com.sistemasgo.sistemasgotaxi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU-O6bEzcBtGmRXLpztIg17lYsd9h2L80"
+        },
+        {
+          "current_key": "AIzaSyD4fVUYon5vMrWwuJHgqOAnHklAQMqE2gs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:777163485744:android:be5a4fddd0b49afb9273f5",
+        "android_client_info": {
+          "package_name": "com.sistemasgo.tippal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU-O6bEzcBtGmRXLpztIg17lYsd9h2L80"
+        },
+        {
+          "current_key": "AIzaSyD4fVUYon5vMrWwuJHgqOAnHklAQMqE2gs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
